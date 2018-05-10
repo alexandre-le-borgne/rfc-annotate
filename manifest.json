@@ -1,0 +1,19 @@
+{
+  "name": "rfc-annotate",
+  "version": "1.0",
+  "description": "Tool to annotate rfc",
+  "manifest_version": 2,
+  "permissions": ["storage", "unlimitedStorage"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "page_action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [{
+    "css": ["styles.css"],
+    "js": ["jquery-3.3.1.min.js", "content.js"],
+    "matches": ["https://tools.ietf.org/html/*", "http://openid.net/specs/*"]
+  }]
+}

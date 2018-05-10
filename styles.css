@@ -1,0 +1,93 @@
+.rfc-annotate-annotation {
+    color: red;
+}
+
+.rfc-annotate-annotation.active {
+    background-color: #eee;
+}
+
+.rfc-annotate-annotation[data-status="ignored"] {
+    color: grey;
+}
+
+.rfc-annotate-annotation[data-status="done"] {
+    color: limegreen;
+}
+
+.rfc-annotate-annotation[data-status="todo"] {
+    color: orange;
+}
+
+#rfc-annotate-popover {
+    position: absolute;
+    display: none;
+    z-index: 9999;
+    min-width: 50px;
+    min-height: 32px;
+    text-align: left;
+    white-space: normal;
+    background-color: #fff;
+    background-clip: padding-box;
+    /*border: 1px solid #ccc;*/
+    border-radius: 6px;
+    -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+#rfc-annotate-popover .arrow {
+    /*position: relative;*/
+    /*background: #ffffff;*/
+    /*border: 1px solid #000000;*/
+}
+#rfc-annotate-popover .arrow:after, #rfc-annotate-popover .arrow:before {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+#rfc-annotate-popover .arrow:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-bottom-color: #ffffff;
+    border-width: 8px;
+    margin-left: -8px;
+}
+#rfc-annotate-popover .arrow:before {
+    border-color: rgba(0, 0, 0, 0);
+    border-bottom-color: #000000;
+    border-width: 8px;
+    margin-left: -8px;
+}
+
+#rfc-annotate-popover ul {
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+/*#rfc-annotate-popover li:first-child {*/
+    /*border-top-left-radius: 4px;*/
+    /*border-top-right-radius: 4px;*/
+/*}*/
+
+#rfc-annotate-popover li:last-child
+{
+    border: 0;
+}
+#rfc-annotate-popover li {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+#rfc-annotate-popover li:hover {
+    background-color: #eee;
+}
