@@ -1,3 +1,5 @@
+var domain = document.location.origin + document.location.pathname
+
 var $popover = $('<div id="rfc-annotate-popover"></div>')
     .append($('<div class="arrow"></div>'))
     .append(
@@ -6,6 +8,7 @@ var $popover = $('<div id="rfc-annotate-popover"></div>')
             .append('<li class="ignored">Ignoré</li>')
             .append('<li class="done">Fait</li>')
             .append('<li class="todo">A faire</li>')
+            .append('<li class="implementation">Implementation</li>')
     );
 
 function getDomPath(el) {
@@ -36,28 +39,31 @@ function getDomPath(el) {
 }
 
 function save() {
-    var data = {};
-    $('.rfc-annotate-annotation').each(function () {
-        var $parent = $(this).parent();
-        data[getDomPath($parent.get(0)).join(' ')] = $parent.html()
-    });
-    console.info('save');
-    console.log(data);
+    chrome.storage.local.get('annotations', function (data) {
+        var annotations = {};
+        $('.rfc-annotate-annotation').each(function () {
+            var $parent = $(this).parent();
+            annotations[getDomPath($parent.get(0)).join(' ')] = $parent.html()
+        });
+        console.info('save');
+        console.log(annotations);
+        data[domain] = annotations;
 
-    chrome.storage.local.set({annotations: data});
+        chrome.storage.local.set({annotations: data});
+    });
 }
 
 // Todo load & save from external
 function load() {
     chrome.storage.local.get('annotations', function (result) {
-        if(typeof result.annotations === 'undefined') {
+        if (typeof result.annotations === 'undefined' && typeof result.annotations[domain] !== 'undefined') {
             return;
         }
 
         console.info('load');
         console.log(result);
 
-        result = result.annotations;
+        result = result.annotations[domain];
         for (var path in result) {
             if (!result.hasOwnProperty(path)) {
                 continue;
@@ -100,6 +106,14 @@ $(function () {
         var $annotation = $popover.data('annotation');
 
         $annotation.attr('data-status', 'done').removeClass('active');
+        $popover.hide();
+        save()
+    });
+
+    $popover.find('.implementation').click(function () {
+        var $annotation = $popover.data('annotation');
+
+        $annotation.attr('data-status', 'implementation').removeClass('active');
         $popover.hide();
         save()
     });

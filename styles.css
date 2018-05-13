@@ -17,6 +17,9 @@
 .rfc-annotate-annotation[data-status="todo"] {
     color: orange;
 }
+.rfc-annotate-annotation[data-status="implementation"] {
+    color: dodgerblue;
+}
 
 #rfc-annotate-popover {
     position: absolute;
